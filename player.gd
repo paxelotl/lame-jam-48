@@ -25,10 +25,11 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle left right input
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * SPEED
-	elif is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, SPEED / 3)
+	if is_on_floor():
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED / 3)
 
 	move_and_slide()
 
