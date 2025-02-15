@@ -10,7 +10,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				velocity = direction_to_arrow.normalized() * 800
+				launch()
 
 func _physics_process(delta: float) -> void:
 	# point arrow towards cursor
@@ -31,3 +31,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED / 3)
 
 	move_and_slide()
+
+func launch():
+	if is_on_floor():
+		velocity = direction_to_arrow.normalized() * 800
