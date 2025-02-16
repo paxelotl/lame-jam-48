@@ -5,12 +5,7 @@ const SPEED = 180.0
 @onready var arrow = $ArrowPivot/Arrow
 
 var direction_to_arrow: Vector2
-
-func _input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				launch()
+var jump_power: float = 700
 
 func _physics_process(delta: float) -> void:
 	# point arrow towards cursor
@@ -23,6 +18,13 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	# Hold to increase jump power
+	if Input.is_action_pressed("left_click") and jump_power < 1100:
+		jump_power += 300 * delta
+	if Input.is_action_just_released("left_click"):
+		launch(jump_power)
+		jump_power = 700
+	
 	# Handle left right input
 	var direction := Input.get_axis("move_left", "move_right")
 	if is_on_floor():
@@ -33,6 +35,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func launch():
+func launch(power: float):
 	if is_on_floor():
-		velocity = direction_to_arrow.normalized() * 800
+		velocity = direction_to_arrow.normalized() * power

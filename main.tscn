@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://be5nvjctv2mog"]
+[gd_scene load_steps=7 format=3 uid="uid://be5nvjctv2mog"]
 
 [ext_resource type="Texture2D" uid="uid://dmjsgkkka2uq0" path="res://icon.svg" id="1_jjf2p"]
 [ext_resource type="Script" path="res://player.gd" id="1_p2a2v"]
@@ -11,6 +11,9 @@ size = Vector2(1444, 170)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_iy5xk"]
 size = Vector2(200, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ut7a"]
+size = Vector2(19.3954, 20)
 
 [node name="Main" type="Node"]
 
@@ -44,8 +47,26 @@ shape = SubResource("RectangleShape2D_gm4ny")
 scale = Vector2(7.22, 0.85)
 texture = SubResource("PlaceholderTexture2D_iy5xk")
 
-[node name="Tree" type="Sprite2D" parent="."]
+[node name="Pillar" type="Node2D" parent="."]
+position = Vector2(565, 303.489)
+scale = Vector2(1.19728, 2.24488)
+
+[node name="Tree" type="Sprite2D" parent="Pillar"]
 z_index = -1
-position = Vector2(565, -20)
-scale = Vector2(1.19728, 5.47977)
+texture = SubResource("PlaceholderTexture2D_iy5xk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pillar"]
+position = Vector2(-133.636, -37.1906)
+scale = Vector2(13.9128, 0.712907)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar/StaticBody2D"]
+position = Vector2(0.30229, 3.05176e-05)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_8ut7a")
+one_way_collision = true
+
+[node name="Branch" type="Sprite2D" parent="Pillar/StaticBody2D/CollisionShape2D"]
+z_index = -1
+position = Vector2(0, 3.05176e-05)
+scale = Vector2(0.0962525, 0.100229)
 texture = SubResource("PlaceholderTexture2D_iy5xk")
