@@ -29,6 +29,16 @@ position_smoothing_enabled = true
 position_smoothing_speed = 13.0
 script = ExtResource("1_nd02i")
 
+[node name="Score" type="Label" parent="Camera"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -9.0
+offset_top = -238.0
+offset_right = 10.0
+offset_bottom = -215.0
+grow_horizontal = 2
+text = "15"
+
 [node name="Barrier" type="StaticBody2D" parent="."]
 position = Vector2(576, 422)
 script = ExtResource("1_qhh25")
