@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://be5nvjctv2mog"]
+[gd_scene load_steps=14 format=3 uid="uid://be5nvjctv2mog"]
 
-[ext_resource type="Texture2D" uid="uid://dmjsgkkka2uq0" path="res://icon.svg" id="1_jjf2p"]
 [ext_resource type="Script" path="res://camera.gd" id="1_nd02i"]
 [ext_resource type="Script" path="res://player.gd" id="1_p2a2v"]
 [ext_resource type="Script" path="res://barrier.gd" id="1_qhh25"]
 [ext_resource type="Texture2D" uid="uid://cwpxadk5lok7q" path="res://textures/base.png" id="4_71370"]
+[ext_resource type="Texture2D" uid="uid://4ftlr5uqtks1" path="res://textures/worm.png" id="4_waeh7"]
 [ext_resource type="Texture2D" uid="uid://4gogldn5dm2p" path="res://textures/ground.png" id="5_ccmy5"]
+[ext_resource type="Texture2D" uid="uid://c3quuccm2sutw" path="res://textures/arrow.png" id="5_g0f1h"]
 [ext_resource type="PackedScene" uid="uid://c314sqwbl5ama" path="res://trunk.tscn" id="7_2ck6r"]
 [ext_resource type="Script" path="res://trunk_manager.gd" id="7_45lq0"]
 
@@ -16,7 +17,7 @@ size = Vector2(100, 500)
 size = Vector2(100, 500)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udbxq"]
-size = Vector2(126, 126)
+size = Vector2(166, 102)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gm4ny"]
 size = Vector2(1444, 170)
@@ -56,18 +57,23 @@ position = Vector2(507, 422)
 script = ExtResource("1_p2a2v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-1, 15)
+scale = Vector2(0.679041, 0.563723)
 shape = SubResource("RectangleShape2D_udbxq")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player/CollisionShape2D"]
-texture = ExtResource("1_jjf2p")
+[node name="Sprite" type="Sprite2D" parent="Player"]
+position = Vector2(10, 19)
+scale = Vector2(0.758711, 0.758711)
+texture = ExtResource("4_waeh7")
 
 [node name="ArrowPivot" type="Node2D" parent="Player"]
 
 [node name="Arrow" type="Sprite2D" parent="Player/ArrowPivot"]
 position = Vector2(180, 0)
 rotation = 1.5708
-scale = Vector2(0.265625, 0.265625)
-texture = ExtResource("1_jjf2p")
+scale = Vector2(1.32851, 1.32851)
+texture = ExtResource("5_g0f1h")
+offset = Vector2(3.3237, 11.426)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 z_index = -1

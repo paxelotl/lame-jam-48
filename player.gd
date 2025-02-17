@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED = 180.0
 @onready var arrow_pivot = $ArrowPivot
 @onready var arrow = $ArrowPivot/Arrow
+@onready var sprite = $Sprite
 
 var direction_to_arrow: Vector2
 var jump_power: float = 700
@@ -30,9 +31,15 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		if direction:
 			velocity.x = direction * SPEED
+				
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED / 3)
-
+	
+	if velocity.x > 0:
+		sprite.flip_h = false
+	elif velocity.x < 0:
+		sprite.flip_h = true
+	
 	move_and_slide()
 
 func launch(power: float):
