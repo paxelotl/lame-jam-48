@@ -1,7 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://be5nvjctv2mog"]
+[gd_scene load_steps=14 format=3 uid="uid://be5nvjctv2mog"]
 
 [ext_resource type="Texture2D" uid="uid://dmjsgkkka2uq0" path="res://icon.svg" id="1_jjf2p"]
+[ext_resource type="Script" path="res://camera.gd" id="1_nd02i"]
 [ext_resource type="Script" path="res://player.gd" id="1_p2a2v"]
+[ext_resource type="Script" path="res://barrier.gd" id="1_qhh25"]
+[ext_resource type="Texture2D" uid="uid://cnnqwpek3ghe3" path="res://textures/trunk.png" id="3_c8mmq"]
+[ext_resource type="Texture2D" uid="uid://8cbqnjjucp1u" path="res://textures/branch.png" id="3_mfslt"]
+[ext_resource type="Texture2D" uid="uid://cwpxadk5lok7q" path="res://textures/base.png" id="4_71370"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3tgl"]
+size = Vector2(100, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uv2r"]
+size = Vector2(100, 500)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udbxq"]
 size = Vector2(126, 126)
@@ -13,23 +24,39 @@ size = Vector2(1444, 170)
 size = Vector2(200, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ut7a"]
-size = Vector2(19.3954, 20)
+size = Vector2(18.3237, 20)
 
 [node name="Main" type="Node"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(398, 539)
+script = ExtResource("1_nd02i")
+
+[node name="Barrier" type="StaticBody2D" parent="."]
+position = Vector2(576, 422)
+script = ExtResource("1_qhh25")
+
+[node name="Left" type="CollisionShape2D" parent="Barrier"]
+position = Vector2(-600, 0)
+shape = SubResource("RectangleShape2D_l3tgl")
+
+[node name="Right" type="CollisionShape2D" parent="Barrier"]
+position = Vector2(600, 0)
+shape = SubResource("RectangleShape2D_3uv2r")
+
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(507, 422)
 script = ExtResource("1_p2a2v")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_udbxq")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Player/CollisionShape2D"]
 texture = ExtResource("1_jjf2p")
 
-[node name="ArrowPivot" type="Node2D" parent="CharacterBody2D"]
+[node name="ArrowPivot" type="Node2D" parent="Player"]
 
-[node name="Arrow" type="Sprite2D" parent="CharacterBody2D/ArrowPivot"]
+[node name="Arrow" type="Sprite2D" parent="Player/ArrowPivot"]
 position = Vector2(180, 0)
 rotation = 1.5708
 scale = Vector2(0.265625, 0.265625)
@@ -37,7 +64,7 @@ texture = ExtResource("1_jjf2p")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 z_index = -1
-position = Vector2(518, 656)
+position = Vector2(576, 738)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2(-3, -69)
@@ -47,26 +74,37 @@ shape = SubResource("RectangleShape2D_gm4ny")
 scale = Vector2(7.22, 0.85)
 texture = SubResource("PlaceholderTexture2D_iy5xk")
 
-[node name="Pillar" type="Node2D" parent="."]
-position = Vector2(565, 303.489)
-scale = Vector2(1.19728, 2.24488)
-
-[node name="Tree" type="Sprite2D" parent="Pillar"]
+[node name="TrunkBase" type="Sprite2D" parent="."]
 z_index = -1
-texture = SubResource("PlaceholderTexture2D_iy5xk")
+position = Vector2(576, 382)
+scale = Vector2(2.63728, 2.24488)
+texture = ExtResource("4_71370")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Pillar"]
-position = Vector2(-133.636, -37.1906)
-scale = Vector2(13.9128, 0.712907)
+[node name="Trunk" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(576, 584)
+scale = Vector2(2.63728, 2.24488)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar/StaticBody2D"]
-position = Vector2(0.30229, 3.05176e-05)
-scale = Vector2(1, 1)
+[node name="Sprite" type="Sprite2D" parent="Trunk"]
+z_index = -2
+position = Vector2(0, -90)
+texture = ExtResource("3_c8mmq")
+
+[node name="BranchPoint" type="Node2D" parent="Trunk"]
+position = Vector2(0, -145)
+
+[node name="Branch" type="StaticBody2D" parent="."]
+position = Vector2(803, 245)
+scale = Vector2(34.022, 2.95936)
+
+[node name="Branch" type="Sprite2D" parent="Branch"]
+z_index = -1
+position = Vector2(-5.22289, 64.9838)
+scale = Vector2(0.0962525, 1.19011)
+texture = ExtResource("3_mfslt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Branch"]
+position = Vector2(0.390196, 0)
+scale = Vector2(0.442293, 0.662534)
 shape = SubResource("RectangleShape2D_8ut7a")
 one_way_collision = true
-
-[node name="Branch" type="Sprite2D" parent="Pillar/StaticBody2D/CollisionShape2D"]
-z_index = -1
-position = Vector2(0, 3.05176e-05)
-scale = Vector2(0.0962525, 0.100229)
-texture = SubResource("PlaceholderTexture2D_iy5xk")
