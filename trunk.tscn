@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c314sqwbl5ama"]
+
+[ext_resource type="Script" path="res://trunk.gd" id="1_34c33"]
+[ext_resource type="Texture2D" uid="uid://cnnqwpek3ghe3" path="res://textures/trunk.png" id="1_y00w5"]
+[ext_resource type="PackedScene" uid="uid://16xi6144qiq1" path="res://branch.tscn" id="3_yid3s"]
+
+[node name="Trunk" type="Node2D"]
+z_index = -1
+scale = Vector2(2.63728, 2.24488)
+script = ExtResource("1_34c33")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(0, -90)
+texture = ExtResource("1_y00w5")
+
+[node name="BranchPivot" type="Node2D" parent="."]
+position = Vector2(0, -145)
+
+[node name="Branch" parent="BranchPivot" instance=ExtResource("3_yid3s")]
+position = Vector2(82.6609, -2.89209)
+scale = Vector2(12.5076, 1.24995)
