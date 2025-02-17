@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://be5nvjctv2mog"]
+[gd_scene load_steps=15 format=3 uid="uid://be5nvjctv2mog"]
 
 [ext_resource type="Script" path="res://camera.gd" id="1_nd02i"]
 [ext_resource type="Script" path="res://player.gd" id="1_p2a2v"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c3quuccm2sutw" path="res://textures/arrow.png" id="5_g0f1h"]
 [ext_resource type="PackedScene" uid="uid://c314sqwbl5ama" path="res://trunk.tscn" id="7_2ck6r"]
 [ext_resource type="Script" path="res://trunk_manager.gd" id="7_45lq0"]
+[ext_resource type="Texture2D" uid="uid://dbqwgeudw5jfb" path="res://textures/clouds.png" id="10_xslxl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3tgl"]
 size = Vector2(100, 500)
@@ -116,3 +117,36 @@ script = ExtResource("7_45lq0")
 trunk = ExtResource("7_2ck6r")
 
 [node name="Trunk" parent="TrunkManager" instance=ExtResource("7_2ck6r")]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0, -900)
+repeat_size = Vector2(0, 1300)
+repeat_times = 50
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+z_index = -3
+position = Vector2(-156, 167)
+scale = Vector2(1.00478, 0.987362)
+texture = ExtResource("10_xslxl")
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0, -1200)
+repeat_size = Vector2(0, 1100)
+repeat_times = 50
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D2"]
+z_index = -3
+position = Vector2(118, 15)
+scale = Vector2(0.984298, 0.984298)
+texture = ExtResource("10_xslxl")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 1700)
+repeat_times = 50
+
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax2D3"]
+z_index = -3
+position = Vector2(711, 252)
+rotation = 3.14159
+scale = Vector2(0.613133, -0.70365)
+texture = ExtResource("10_xslxl")
